@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Defines the alters.
+ */
+
+/**
+ * Implements hook_views_default_views_alter().
+ *
+ * Alter the front page event list to display a custom number of events, which
+ * defaults to 10.
+ */
+function aakb_alters_views_default_views_alter(&$views) {
+  if (isset($views['ding_event'])) {
+    $handler =& $views['ding_event']->display['ding_event_list_frontpage']->handler;
+    $handler->display->display_options['pager']['options']['items_per_page'] = variable_get('aakb_alters_frontpage_event_number', 10);
+  }
+}
