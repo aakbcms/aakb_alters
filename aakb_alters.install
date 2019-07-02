@@ -8,12 +8,19 @@
  * Implements hook_install().
  */
 function aakb_alters_install() {
-
+  variable_set('scheduler_unpublish_required_ding_event', TRUE);
 }
 
 /**
  * Implements hook_uninstall().
  */
 function aakb_alters_uninstall() {
+  variable_set('scheduler_unpublish_required_ding_event', FALSE);
+}
 
+/**
+ * Enabled unpublished requires for ding_event.
+ */
+function aakb_alters_update_7100(&$sandbox) {
+  variable_set('scheduler_unpublish_required_ding_event', TRUE);
 }
