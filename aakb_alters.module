@@ -22,3 +22,41 @@ function aakb_alters_preprocess_node(&$variables) {
     $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . '_splash';
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function aakb_alters_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
+  $nodes = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'ding_library')
+    ->condition('status', '1')
+    ->execute()
+    ->fetchAll();
+
+  // Generate link for each library.
+  if (!empty($nodes)) {
+    $library_names = array_column($nodes, 'title', 'title');
+    asort($library_names);
+  }
+
+  array_unshift($library_names, t('Not relevant'));
+
+  $form['library'] = array(
+    '#type' =>  'select',
+    '#title' => t('Select library'),
+    '#options' => $library_names,
+    '#weight' => 5,
+  );
+
+  array_unshift($form['#submit'], 'aakb_alters_contact_site_form_submit');
+  $form['message']['#weight'] = 10;
+  $form['copy']['#weight'] = 20;
+}
+
+/**
+ * Submit handler to add library to message sent.
+ */
+function aakb_alters_contact_site_form_submit($form, &$form_state) {
+  $form_state['values']['message'] .= "\r\n\r\n" . t('Library selected:') . ' ' . $form_state['values']['library'];
+}
