@@ -34,22 +34,6 @@ function aakb_alters_form_contact_site_form_alter(&$form, &$form_state, $form_id
     ->execute()
     ->fetchAll();
 
-  $form['info'] = [
-    '#type' => 'item',
-    '#markup' => '<span>
-<h2>Bibliotekerne holder lukket</h2>
-<p>Det sker efter de danske myndigheder har besluttet, at bibliotekerne i 38 kommuner skal lukkes som led i tiltag mod coronavirus.</p>
-<p>I lukkeperioden vil der ikke blive udskrevet gebyrer. Efter genåbning, vil der være en kort periode, hvor du kan aflevere gebyrfrit.</p>
-<p>Vi anbefaler, at du forlænger dine lån via <a href="https://www.aakb.dk">www.aakb.dk</a> eller vores biblioteksapp, hvis det er muligt.</p>
-<p>Bemærk at forlængelse først kan ske tidligst 7 dage før afleveringsfristen.</p>
-<p>Du kan holde dig orienteret om Aarhus Bibliotekernes situation under nedlukningen her:
-<a href="https://www.aakb.dk/nyheder/kort-nyt/aarhus-bibliotekerne-holder-lukket-fra-onsdag-den-9-december">https://www.aakb.dk/nyheder/kort-nyt/aarhus-bibliotekerne-holder-lukket-fra-onsdag-den-9-december</a></p>
-<p>Når Aarhus Bibliotekerne genåbner, kan det ske at ikke alle åbner samtidig. Hvis dit lokale bibliotek åbner senere, skal du benytte et af de andre åbne biblioteker for at aflevere til tiden.</p>
-<p>Tjek <a href="https://www.aakb.dk">www.aakb.dk</a> med jævne mellemrum, så du altid ved, hvordan du skal forholde dig.</p>
-<span>',
-    '#weight' => '-50',
-  ];
-
   // Generate link for each library.
   if (!empty($nodes)) {
     $library_names = array_column($nodes, 'title', 'title');
